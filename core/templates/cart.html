@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/foundation/5.0.2/css/foundation.css'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+   
+  <style>
+    nav {
+        margin-bottom: 1em !important;
+    }
+
+    .cart {
+      box-shadow: 0 0 5px #ba2323;
+      padding: 20px;
+    }
+    .row{
+      margin-top: 80px;
+      margin-left: 30px;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+    
+
+    .alert {
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 0;
+      margin-top: 10px;
+    }
+
+    .cart {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart h1 {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .cart button {
+      margin-top: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .cart button:hover {
+      background-color: #0056b3;
+    }
+
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .product {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .product img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .product h3 {
+      color: #333;
+      font-size: 20px;
+      margin: 10px 0;
+    }
+
+    .count {
+      width: 50px;
+      text-align: center;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 5px;
+      margin: 10px 0;
+    }
+
+    .product button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .product button:hover {
+      background-color: #0056b3;
+    }
+
+    #cartItems {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    #totalPrice {
+      color: #007bff;
+      font-size: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .product {
+        flex-basis: calc(50% - 20px);
+      }
+    }
+
+    @media (max-width: 576px) {
+      .product {
+        flex-basis: calc(100% - 20px);
+      }
+
+      .cart {
+        padding: 10px;
+      }
+    }
+  </style>
+{% endblock %}
+
+
+{%block body %}
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-info mt-0 mb-0 alert-dismissible fade show" style="padding-top: 10px;" role="alert" id="message">
+        {{ message }}
+        <button type="button" class="close" style="padding-top: 10px;" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+{% endif %}
+  
+  <!-- Cart Section -->
+  <div class="cart">
+    <h1>Your Cart</h1>
+    <ul id="cart-items">
+      <!-- Cart items will be dynamically added here -->
+    </ul>
+    <h2>Add Items to Cart</h2>
+    <!-- <form method="post" action="{% url 'add_to_cart' %}">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="product-select">Select Product:</label>
+        <select id="product-select" name="product_name" class="form-control">
+          <option value="Notebook">Notebook</option>
+          <option value="Pouncing Machine">Punching Machine</option>
+          <option value="Stapler">Stapler</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="price">Price:</label>
+        <span id="price">10.00</span> $
+      </div>
+      <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" value="1" min="1" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-primary">Add to Cart</button>
+    </form> -->
+    <form id="add-to-cart-form">
+    {% csrf_token %}
+    <label for="product-select">Select Product:</label>
+    <select id="product-select" name="product_name">
+        <option value="Notebook">Notebook</option>
+        <option value="Punching Machine">Punching Machine</option>
+        <option value="Stapler">Stapler</option>
+    </select>
+    <label for="price">Price:</label>
+    <span id="price">10.00</span> $
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" value="1" min="1">
+    <button type="button" id="add-to-cart-button">Add to Cart</button>
+</form>
+
+    <p>Total Cost: $<span id="totalCost">0.00</span></p>
+  </div>
+</div>
+
+<script type="text/template" id="cartT">
+<% _.each(items, function (item) { %> <div class = "panel"> <h3> <%= item.name %> </h3>  <span class="label">
+<%= item.count %> piece<% if(item.count > 1)
+{%>s
+<%}%> for <%= item.total %>$</span > </div>
+<% }); %>
+</script>
+    <script src=" {% static 'js/cart.js' %}"></script>
+
+
+<!-- END EDMO HTML (Happy Coding!)-->
+</main>
+
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js'></script>
+<script src="./js/script.js"></script>
+{%endblock%}

@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/5.0.2/css/foundation.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+    
+
+    .alert {
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 0;
+      margin-top: 10px;
+    }
+
+    .cart {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart h1 {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .cart button {
+      margin-top: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .cart button:hover {
+      background-color: #0056b3;
+    }
+
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .product {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .product img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .product h3 {
+      color: #333;
+      font-size: 20px;
+      margin: 10px 0;
+    }
+
+    .count {
+      width: 50px;
+      text-align: center;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 5px;
+      margin: 10px 0;
+    }
+
+    .product button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .product button:hover {
+      background-color: #0056b3;
+    }
+
+    #cartItems {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    #totalPrice {
+      color: #007bff;
+      font-size: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .product {
+        flex-basis: calc(50% - 20px);
+      }
+    }
+
+    @media (max-width: 576px) {
+      .product {
+        flex-basis: calc(100% - 20px);
+      }
+
+      .cart {
+        padding: 10px;
+      }
+    }
+  </style>
+{% endblock %}
+
+
+{%block body %}
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-info mt-0 mb-0 alert-dismissible fade show" style="padding-top: 10px;" role="alert" id="message">
+        {{ message }}
+        <button type="button" class="close" style="padding-top: 10px;" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+{% endif %}
+
+    
+
+<div class="container mt-5">
+  <div class="jumbotron text-center">
+      <h1 class="display-4">Welcome to Riya Stationary</h1>
+      <p class="lead">Your one-stop destination for all your stationary needs.</p>
+      <a class="btn btn-primary btn-lg"
+          href="https://www.google.com/maps/place/Riya+Stationery/@25.6011885,61.869321,4z/data=!4m10!1m2!2m1!1sriya+stationery+delhi!3m6!1s0x390d06baa39c6473:0xe90c0cf3fc9869fe!8m2!3d28.7185216!4d77.0895266!15sChVyaXlhIHN0YXRpb25lcnkgZGVsaGmSARBzdGF0aW9uZXJ5X3N0b3Jl4AEA!16s%2Fg%2F1hm2ykj96?entry=ttu"
+          target="_blank" role="button">View on Map</a>
+  </div>
+</div>
+
+
+<div class="container mt-5">
+  <div class="row">
+
+      <div class="col-md-4 mb-4">
+          <div class="card">
+              <img src="static/img/punching.jpg"
+                  class="card-img-top" alt="service 2">
+              <div class="card-body">
+                  <h5 class="card-title">go for stat</h5>
+                  <p class="card-text">here you will find thee top xerox techinques for u</p>
+                  <a href="#" class="btn btn-primary">View Details</a>
+              </div>
+          </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+          <div class="card">
+              <img src="static/img/xerox.jpg" class="card-img-top" alt="service 2">
+              <div class="card-body">
+                  <h5 class="card-title">go for xerox here</h5>
+                  <p class="card-text">here you will find thee top xerox techinques for u</p>
+                  <a href="#" class="btn btn-primary">View Details</a>
+              </div>
+          </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+          <div class="card">
+              <img src="static/img/binding.jpg" class="card-img-top" alt="service 2">
+              <div class="card-body">
+                  <h5 class="card-title">go for binding</h5>
+                  <p class="card-text">here you will find thee top binding techinques for u</p>
+                  <a href="#" class="btn btn-primary">View Details</a>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+      <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+          integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+          crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+          integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+          crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+          integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+          crossorigin="anonymous"></script>
+
+</body>
+{%endblock%}
